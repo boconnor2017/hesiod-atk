@@ -373,7 +373,7 @@ A Requirements document contains the following six sections, as second-level hea
 
 **(a) Vision and Strategy** — a long-term point of view of the design, focused on the desired outcome. A roadmap diagram is acceptable here as long as it's accompanied by a brief summary. Scope and feasibility are explicitly out of place in this section — later sections handle pragmatic constraints; this one is about the destination.
 
-**(b) Path to Production** — specific elements for operational readiness: industry compliance standards (NIST, STIG, PCI, HIPAA, etc.) and pipeline stages (Development, Test, User Acceptance, Production, etc.). Unless the architect specifies otherwise for a given engagement, this toolkit's default compliance baseline is **NIST 500-83**, and the model should draft this section against that baseline by default.
+**(b) Path to Production** — specific elements for operational readiness: industry compliance standards (NIST, STIG, PCI, HIPAA, etc.) and pipeline stages (Development, Test, User Acceptance, Production, etc.). Unless the architect specifies otherwise for a given engagement, this toolkit's default compliance baseline is **NIST 800-53**, and the model should draft this section against that baseline by default.
 
 **(c) Testing Strategy** — specific elements for testing. Unless the architect specifies otherwise, this toolkit's default functional baseline is **"Hello World"** — for a private cloud, this means every feature the cloud offers is deployed and usable by an administrative-level user. The model drafts this section against that baseline by default.
 
