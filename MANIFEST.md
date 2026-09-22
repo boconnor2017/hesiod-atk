@@ -1,6 +1,6 @@
 # Hesiod ATK — Repository Manifest
 
-This manifest is the standing specification for initializing a **Hesiod ATK (Architecture Toolkit)** repository. Whenever a new Hesiod ATK project is started, the AI model reads this manifest and reproduces the structure, naming, and formatting standards below exactly — nothing here is optional or a suggestion to adapt per-project unless the human accountable for the project explicitly asks for a deviation.
+This manifest is the standing specification for initializing a **Hesiod ATK (Architecture Toolkit)** repository. Whenever a new Hesiod ATK project is started, Claude reads this manifest and reproduces the structure, naming, and formatting standards below exactly — nothing here is optional or a suggestion to adapt per-project unless the human accountable for the project explicitly asks for a deviation.
 
 The current reference instance built from this manifest is `hesiod-atk-9.1.1`. The release number (`x.y.z`) changes over time; treat every occurrence of `x.y.z` below as "the current release number for this toolkit," not a fixed value.
 
@@ -8,7 +8,7 @@ The current reference instance built from this manifest is `hesiod-atk-9.1.1`. T
 
 ## 1. Purpose
 
-The Hesiod ATK repository is where the AI model, acting as draft technical writer, produces the technical artifacts of an architecture engagement across five phases: Discovery, Requirements, Design, Planning, and Governance. This manifest guarantees that every instance of the toolkit — regardless of who initializes it or when — has:
+The Hesiod ATK repository is where Claude, acting as draft technical writer, produces the technical artifacts of an architecture engagement across five phases: Discovery, Requirements, Design, Planning, and Governance. This manifest guarantees that every instance of the toolkit — regardless of who initializes it or when — has:
 
 - The same folder structure
 - The same file-naming conventions
@@ -116,7 +116,7 @@ Every Markdown document produced under this manifest — every template, and eve
 |---|---|
 | `[Document Title]` | The document's plain-language title (e.g. "Discovery", "Requirements", "Solution Design"). Follows "Hesiod" in the H1. |
 | `Version` | The document's own version number, followed by its review status: `DRAFT`, `INTERNAL REVIEWED`, or `EXTERNAL REVIEWED`. Documents start at `1.0 [DRAFT]`. |
-| `Author` | The accountable human who owns the document's content (the AI model drafts; a human is always the accountable author of record). |
+| `Author` | The accountable human who owns the document's content (Claude drafts; a human is always the accountable author of record). |
 | `Role` | That human's role/title on the engagement. |
 | `Reviewers` | The human(s) who have reviewed or must review the document. |
 | `Date` | The date of the current version. |
@@ -134,9 +134,9 @@ Every Markdown document produced under this manifest — every template, and eve
 - Reference images from a working document (which lives at `<phase>/<doc>.md`) with a path relative to the phase root: `![alt text](_img/<filename>.png)`.
 - The one exception is the header image, which is shared repository-wide and lives in `_atkconfig/` (see §5).
 
-## 7. Initializing a new Hesiod ATK repository — the AI model's procedure
+## 7. Initializing a new Hesiod ATK repository — Claude's procedure
 
-When asked to initialize a new Hesiod ATK project, the AI model does the following, in order:
+When asked to initialize a new Hesiod ATK project, Claude does the following, in order:
 
 1. **Confirm the release number** (`x.y.z`) for the new instance if it isn't already clear from context, and **capture the project name** the architect provided in the initialization prompt (README §18.2, Step 2) — this is the name used throughout the project per the Project Naming rule (§20).
 2. **Create the folder structure** exactly as specified in §3, using the current release number in the root folder name.
@@ -154,7 +154,7 @@ When asked to initialize a new Hesiod ATK project, the AI model does the followi
 
 ## 8. Using a template to start a working document
 
-When a human or the AI model starts a real document for a phase:
+When a human or Claude starts a real document for a phase:
 
 0. Apply the Technical Writing Standard (§19) throughout drafting — it governs the depth and specificity of everything written in the steps below, on top of each document type's required sections (§14–§17).
 1. Copy the phase's template from `<phase>/_templates/hesiod-atk-<templateName>.md` to `<phase>/<descriptive-file-name>.md` (directly in the phase folder, not in `_templates/`).
@@ -212,8 +212,17 @@ Nothing confidential or proprietary — client data, credentials, unreleased des
 Because these documents carry an "architect in the loop," readers must be able to tell that a draft originated with an AI model rather than mistake it for wholly human-authored, final work:
 
 - **Text:** the `Version` field's `[DRAFT / INTERNAL REVIEWED / EXTERNAL REVIEWED]` status (§5) is itself the primary disclosure mechanism — a document sitting at `DRAFT` signals unreviewed AI-assisted content. Do not remove or obscure this field, and do not backdate or misstate review status.
-- **Images and diagrams:** where a document embeds an AI-generated or AI-rendered image (a diagram, a mockup, a banner), note the generating tool/model in the image's alt text or a caption (e.g. `*Diagram generated with the AI model (Sonnet 5).*`), and preserve any provenance metadata the generating tool embeds (e.g. C2PA "Content Credentials," or similar watermarking/metadata standards) rather than stripping it on export or re-save. If the toolchain used to render an image does not support embedded provenance metadata, the caption disclosure above is required in its place.
+- **Images and diagrams:** where a document embeds an AI-generated or AI-rendered image (a diagram, a mockup, a banner), note the generating tool/model in the image's alt text or a caption (e.g. `*Diagram generated with Claude (Sonnet 5).*`), and preserve any provenance metadata the generating tool embeds (e.g. C2PA "Content Credentials," or similar watermarking/metadata standards) rather than stripping it on export or re-save. If the toolchain used to render an image does not support embedded provenance metadata, the caption disclosure above is required in its place.
 - This disclosure requirement applies independently of document review status — an image stays marked as AI-generated even after the surrounding document reaches `EXTERNAL REVIEWED`, unless a human materially recreates or redraws it.
+
+### 10.6 Anonymization of real companies and people
+
+This is not intended as a comprehensive data-loss-prevention control — it's a baseline habit, on top of §10.4, for the common case where a real name lands in a prompt or in Discovery material.
+
+- **Real companies.** If a real company is named anywhere in the input material (a prompt, a Discovery document, an uploaded note), the model replaces it with the fictitious company **Rainpole** throughout every document it drafts. If more than one distinct real organization appears (e.g. a customer and a separate partner or vendor), number them in the order encountered: **Rainpole 1**, **Rainpole 2**, and so on — reflected in the mapping table below.
+- **Real people.** If a real person is named anywhere in the input material, the model replaces them with a Marvel Avengers character, consistently, throughout every document it drafts — the same real person always maps to the same Avenger within a given project.
+- **Mapping table.** Every time this substitution happens, the model records the real name → fictitious name mapping in a comment (§11.1) in the document where the substitution first occurs, so the mapping is architect-only and never appears in anything a reviewer would see. This gives the architect what they need to do a quick find-and-replace back to real names later if the document is ever used outside the fictionalized context. A single project's mappings should stay consistent across documents — don't remap the same real name to a different Avenger in a later document.
+- This substitution happens in whatever the model drafts (Requirements, Design, Planning, Governance documents, per §14–§17) — it never applies to `01. Discovery/` itself, since the model never writes there (§13.1); the architect's verbatim discovery material keeps real names as originally provided.
 
 ## 11. Documentation standards
 
@@ -221,7 +230,7 @@ Because these documents carry an "architect in the loop," readers must be able t
 
 The Markdown source of every document is written for the architect, not for reviewers. Reviewers only ever see the PDF the architect exports for internal or external review (§1, §10.1) — they never see the Markdown source or its comments.
 
-Markdown comments (`<!-- like this -->`) are the behind-the-scenes forum for that architect-only layer: notes that need to persist with the document itself rather than living only in a prompt history that gets lost between sessions. Use them for things like open questions for the architect, a rationale the model wants on record, a flag on an assumption made while drafting, or a note on what still needs a citation or a diagram.
+Markdown comments (`<!-- like this -->`) are the behind-the-scenes forum for that architect-only layer: notes that need to persist with the document itself rather than living only in a prompt history that gets lost between sessions. Use them for things like open questions for the architect, a rationale the model wants on record, a flag on an assumption made while drafting, a note on what still needs a citation or a diagram, or a real-name-to-fictitious-name mapping table (§10.6).
 
 Rules:
 
