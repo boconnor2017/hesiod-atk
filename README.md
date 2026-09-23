@@ -1,6 +1,6 @@
 ![header](_atkconfig/header.png)
 
-# About the Hesiod Architecture Toolkit
+# About the Hesiod Architecture Toolkit 
 
 The Hesiod Architecture Toolkit (HATK) — version 9.1.1 — is an open source project to assist architects in the creation, publication, and release management of design artifacts. By using this toolkit, technical practitioners remain within the acceptable boundaries of the manifest while using approved AI models to accelerate productivity in the technical writing process.
 
