@@ -1,6 +1,6 @@
 ![header](_atkconfig/header.png)
 
-# About the Hesiod Architecture Toolkit 
+# About the Hesiod Architecture Toolkit
 
 The Hesiod Architecture Toolkit (HATK) — version 9.1.1 — is an open source project to assist architects in the creation, publication, and release management of design artifacts. By using this toolkit, technical practitioners remain within the acceptable boundaries of the manifest while using approved AI models to accelerate productivity in the technical writing process.
 
@@ -24,7 +24,7 @@ If you are using a cloud based AI model, upload the MANIFEST.md file to your bro
 Please initialize a new project using the manifest. The project name is <PROJECT NAME>.
 ```
 
-AI agents will automatically create a local folder structure with necessary templates. Cloud agents will provide the steps to create local folder structure manually and will provide templates for you to download to the appropriate folder.
+Desktop AI agents will automatically create a local folder structure with necessary templates. Cloud based AI models will provide the steps to create local folder structure manually and will provide templates for you to download to the appropriate folder.
 
 Per the instructions in the manifest, the AI should prompt you for three confirmations:
 1. To ensure the header graphic is updated.
@@ -78,6 +78,8 @@ hesiod-atk-9.1.1/
 ├── 05. Governance/
 │   ├── _img/
 │   └── _templates/
+├── LICENSE
+├── MANIFEST.md
 └── README.md
 ```
 

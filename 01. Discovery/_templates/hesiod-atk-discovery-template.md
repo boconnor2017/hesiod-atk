@@ -18,11 +18,14 @@ This design should incorporate all components associated with VMware Cloud Found
 
 # Reference Guardrails
 
+<!-- Toolkit default domain list. The architect must confirm or replace it during
+     initialization before any AI-assisted research begins. -->
+
 All content should leverage formal published documentation from *.broadcom.com and *.vmware.com. The primary source of truth should come from *techdocs.broadcom.com. Other content sourced from blogs, knowledge base, developer or automation, etc is secondary.
 
 # Standard Design
 
-This design should begin with a comprehensive technical design required to deploy VMware Cloud Foundation 9.1.1 in its entirety in a non-production environment. Leverage security and hardening guide and NIST 500-83 standards for VMware as a starting point for design specifications.
+This design should begin with a comprehensive technical design required to deploy VMware Cloud Foundation 9.1.1 in its entirety in a non-production environment. Leverage security and hardening guide and NIST 800-53 standards for VMware as a starting point for design specifications.
 
 # Customer Discovery
 

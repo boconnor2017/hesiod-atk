@@ -1,6 +1,6 @@
 # Hesiod ATK — Repository Manifest
 
-This manifest is the standing specification for initializing a **Hesiod ATK (Architecture Toolkit)** repository. Whenever a new Hesiod ATK project is started, Claude reads this manifest and reproduces the structure, naming, and formatting standards below exactly — nothing here is optional or a suggestion to adapt per-project unless the human accountable for the project explicitly asks for a deviation.
+This manifest is the standing specification for initializing a **Hesiod ATK (Architecture Toolkit)** repository. Whenever a new Hesiod ATK project is started, the AI model reads this manifest and reproduces the structure, naming, and formatting standards below exactly — nothing here is optional or a suggestion to adapt per-project unless the human accountable for the project explicitly asks for a deviation.
 
 The current reference instance built from this manifest is `hesiod-atk-9.1.1`. The release number (`x.y.z`) changes over time; treat every occurrence of `x.y.z` below as "the current release number for this toolkit," not a fixed value.
 
@@ -8,7 +8,7 @@ The current reference instance built from this manifest is `hesiod-atk-9.1.1`. T
 
 ## 1. Purpose
 
-The Hesiod ATK repository is where Claude, acting as draft technical writer, produces the technical artifacts of an architecture engagement across five phases: Discovery, Requirements, Design, Planning, and Governance. This manifest guarantees that every instance of the toolkit — regardless of who initializes it or when — has:
+The Hesiod ATK repository is where the AI model, acting as draft technical writer, produces the technical artifacts of an architecture engagement across five phases: Discovery, Requirements, Design, Planning, and Governance. This manifest guarantees that every instance of the toolkit — regardless of who initializes it or when — has:
 
 - The same folder structure
 - The same file-naming conventions
@@ -26,6 +26,8 @@ hesiod-atk-<x>.<y>.<z>
 Example: `hesiod-atk-9.1.1`
 
 `x.y.z` is the release/version number of the toolkit being developed against, not the version of any individual document inside it (see §5 for document versioning).
+
+The one exception is the upstream toolkit source repository itself (https://github.com/boconnor2017/hesiod-atk), which is published unversioned as `hesiod-atk` so its URL stays stable across releases; its current release number is carried by its release notes file (§12). Every project instance initialized from it uses the versioned name above.
 
 ## 3. Folder structure
 
@@ -50,6 +52,8 @@ hesiod-atk-x.y.z/
 ├── 05. Governance/
 │   ├── _img/
 │   └── _templates/
+├── LICENSE
+├── MANIFEST.md
 └── README.md
 ```
 
@@ -116,7 +120,7 @@ Every Markdown document produced under this manifest — every template, and eve
 |---|---|
 | `[Document Title]` | The document's plain-language title (e.g. "Discovery", "Requirements", "Solution Design"). Follows "Hesiod" in the H1. |
 | `Version` | The document's own version number, followed by its review status: `DRAFT`, `INTERNAL REVIEWED`, or `EXTERNAL REVIEWED`. Documents start at `1.0 [DRAFT]`. |
-| `Author` | The accountable human who owns the document's content (Claude drafts; a human is always the accountable author of record). |
+| `Author` | The accountable human who owns the document's content (the AI model drafts; a human is always the accountable author of record). |
 | `Role` | That human's role/title on the engagement. |
 | `Reviewers` | The human(s) who have reviewed or must review the document. |
 | `Date` | The date of the current version. |
@@ -134,27 +138,27 @@ Every Markdown document produced under this manifest — every template, and eve
 - Reference images from a working document (which lives at `<phase>/<doc>.md`) with a path relative to the phase root: `![alt text](_img/<filename>.png)`.
 - The one exception is the header image, which is shared repository-wide and lives in `_atkconfig/` (see §5).
 
-## 7. Initializing a new Hesiod ATK repository — Claude's procedure
+## 7. Initializing a new Hesiod ATK repository — the AI model's procedure
 
-When asked to initialize a new Hesiod ATK project, Claude does the following, in order:
+When asked to initialize a new Hesiod ATK project, the AI model does the following, in order:
 
 1. **Confirm the release number** (`x.y.z`) for the new instance if it isn't already clear from context, and **capture the project name** the architect provided in the initialization prompt (README §18.2, Step 2) — this is the name used throughout the project per the Project Naming rule (§20).
 2. **Create the folder structure** exactly as specified in §3, using the current release number in the root folder name.
 3. **Create `README.md`** at the repository root, using the reduced header defined in §18.0 (image only — no title, no metadata table) and the full required structure defined in §18 (About, Quick Start, WARNING, Helpful Hint, plus the Repository Structure and License reference sections). `README.md` always says "Hesiod" regardless of project name (§20).
 4. **Create `LICENSE`** at the repository root containing the MIT License text (§10.2).
-5. **Populate each phase's `_templates/` folder** with that phase's master template (§4), each containing at minimum the standard header (§5) — with the project name in place of "Hesiod" in the title, per §20 — and the mandatory `# References` footer stub (§10.3). Template bodies beyond the header and References footer are developed separately and adopted into this manifest once finalized — do not invent template body content that hasn't been specified.
+5. **Populate each phase's `_templates/` folder** with that phase's master template (§4), each containing at minimum the standard header (§5) — with the project name in place of "Hesiod" in the title, per §20 — and the mandatory `# References` footer stub (§10.3). Each template's body follows the sections this manifest specifies for that phase (§13.3, §14–§17) — do not invent template body content beyond what is specified there.
 6. **Create the release notes file** at `_release_notes/hesiod-atk-x.y.z-release-notes.md` (§12), with the three mandatory sections (What's New, Known Issues, Bill of Materials), the Known Issues architect comment, and the Bill of Materials table populated from whatever templates the repository ships with. The release notes always say "Hesiod" regardless of project name (§20).
 7. **Obtain three confirmations from the architect** before initialization is considered complete — this is a hard gate, not an optional courtesy, and README §18.2 (Step 2) tells the architect to expect it:
    - **Header graphic** — confirm whether to update `_atkconfig/header.png` for this project or keep the toolkit default.
    - **License ownership** — confirm the copyright holder/entity to put on the `LICENSE` file (§10.2).
    - **Research guardrails** — confirm the approved reference domains for this project (§10.3) before any AI-assisted research begins. Do not query or cite sources outside that list without explicit permission.
 8. **Leave `_atkconfig/` and `_release_notes/` structurally present** — `_atkconfig/` will hold `header.png` and other shared config (added separately since it's a binary asset, and may be updated per the Step 7 confirmation); `_release_notes/` starts empty except for the file created in step 6.
-9. **Do not populate `_img/` folders** at init time — they are populated as documents are written and images are added.
+9. **Do not populate `_img/` folders** at init time — they are populated as documents are written and images are added. An empty `.gitkeep` placeholder is permitted so the empty folder survives version control.
 10. **Confirm the result** to the person: what was created, where, confirmation that all three Step 7 items were addressed, and what (if anything) is still needed before the templates can be used to draft real documents.
 
 ## 8. Using a template to start a working document
 
-When a human or Claude starts a real document for a phase:
+When a human or the AI model starts a real document for a phase:
 
 0. Apply the Technical Writing Standard (§19) throughout drafting — it governs the depth and specificity of everything written in the steps below, on top of each document type's required sections (§14–§17).
 1. Copy the phase's template from `<phase>/_templates/hesiod-atk-<templateName>.md` to `<phase>/<descriptive-file-name>.md` (directly in the phase folder, not in `_templates/`).
@@ -169,7 +173,7 @@ This manifest is itself a governed document. Changes to folder structure, naming
 
 ## 10. Non-negotiable governance standards ("architect in the loop")
 
-The Hesiod ATK exists to accelerate drafting, not to remove human accountability from the artifacts it produces. The following five standards apply to every document produced under this manifest, in every repository instance, without exception. They are guardrails, not defaults — they are not to be relaxed, reworded away, or silently dropped by an AI model acting on this manifest.
+The Hesiod ATK exists to accelerate drafting, not to remove human accountability from the artifacts it produces. The following six standards apply to every document produced under this manifest, in every repository instance, without exception. They are guardrails, not defaults — they are not to be relaxed, reworded away, or silently dropped by an AI model acting on this manifest.
 
 ### 10.1 AI drafts; the human Author owns
 
@@ -194,7 +198,7 @@ Every AI-drafted document must end with a comprehensive list of the sources it d
 * [Title](URL)
 ```
 
-Before an AI model does any research for a new project, the **architect must supply a list of acceptable public domains** the model is permitted to query. The model must not pull from, cite, or otherwise use sources outside that approved domain list without the architect's explicit permission. If no domain list has been provided yet, the model must ask for one before researching rather than assuming a default scope. (In practice, the architect typically supplies this list as part of a Discovery scoping document — see §18.2, Step 3 — under a "Reference Guardrails" heading or equivalent.)
+Before an AI model does any research for a new project, the **architect must supply a list of acceptable public domains** the model is permitted to query. The model must not pull from, cite, or otherwise use sources outside that approved domain list without the architect's explicit permission. This list lives in the Discovery document's Reference Guardrails section (§13.3(b)). The Discovery template ships with a toolkit-default domain list there, but that default is a proposal, not an approval: the model must have the architect confirm or replace it (§7, step 7) before researching, and must never treat an unconfirmed default as the approved scope.
 
 Every reference in a `# References` section must point outside the Hesiod ATK toolkit's own published documents. A Requirements, Design, Planning, or Governance document must never cite another document produced under this manifest (e.g. Design citing the Requirements document, or Governance citing Design) as if it were an independent source — doing so makes the References section circular and self-validating, which defeats its purpose. References exist to ground a document in external reality (vendor documentation, standards bodies, published research, etc.), not to point back at the toolkit's own artifacts. Cross-references between the toolkit's own documents belong in the document's body prose (e.g. "as defined in the Requirements document") or in a comment (§11.1), never in the References section.
 
@@ -219,7 +223,7 @@ Because these documents carry an "architect in the loop," readers must be able t
 
 This is not intended as a comprehensive data-loss-prevention control — it's a baseline habit, on top of §10.4, for the common case where a real name lands in a prompt or in Discovery material.
 
-- **Real companies.** If a real company is named anywhere in the input material (a prompt, a Discovery document, an uploaded note), the model replaces it with the fictitious company **Rainpole** throughout every document it drafts. If more than one distinct real organization appears (e.g. a customer and a separate partner or vendor), number them in the order encountered: **Rainpole 1**, **Rainpole 2**, and so on — reflected in the mapping table below.
+- **Real companies.** If a real company is named anywhere in the input material (a prompt, a Discovery document, an uploaded note), the model replaces it with the fictitious company **Rainpole** throughout every document it drafts. If more than one distinct real organization appears (e.g. a customer and a separate partner or vendor), number them in the order encountered: **Rainpole 1**, **Rainpole 2**, and so on — recorded in the mapping table described below.
 - **Real people.** If a real person is named anywhere in the input material, the model replaces them with a Marvel Avengers character, consistently, throughout every document it drafts — the same real person always maps to the same Avenger within a given project.
 - **Mapping table.** Every time this substitution happens, the model records the real name → fictitious name mapping in a comment (§11.1) in the document where the substitution first occurs, so the mapping is architect-only and never appears in anything a reviewer would see. This gives the architect what they need to do a quick find-and-replace back to real names later if the document is ever used outside the fictionalized context. A single project's mappings should stay consistent across documents — don't remap the same real name to a different Avenger in a later document.
 - This substitution happens in whatever the model drafts (Requirements, Design, Planning, Governance documents, per §14–§17) — it never applies to `01. Discovery/` itself, since the model never writes there (§13.1); the architect's verbatim discovery material keeps real names as originally provided.
@@ -228,7 +232,7 @@ This is not intended as a comprehensive data-loss-prevention control — it's a 
 
 ### 11.1 Comments are an architect-only review channel
 
-The Markdown source of every document is written for the architect, not for reviewers. Reviewers only ever see the PDF the architect exports for internal or external review (§1, §10.1) — they never see the Markdown source or its comments.
+The Markdown source of every document is written for the architect, not for reviewers. Reviewers only ever see the PDF the architect exports for internal or external review (§10.1, §18.4) — they never see the Markdown source or its comments.
 
 Markdown comments (`<!-- like this -->`) are the behind-the-scenes forum for that architect-only layer: notes that need to persist with the document itself rather than living only in a prompt history that gets lost between sessions. Use them for things like open questions for the architect, a rationale the model wants on record, a flag on an assumption made while drafting, a note on what still needs a citation or a diagram, or a real-name-to-fictitious-name mapping table (§10.6).
 
@@ -236,8 +240,8 @@ Rules:
 
 - Only the AI model or the architect adds comments. A comment is never written as if it were addressed to, or might be seen by, a reviewer.
 - Comments must never contain content that belongs in the document body (findings, decisions, references) — they are notes about the document, not part of it.
-- Because the architect converts to PDF for review (§1), and standard Markdown→PDF conversion drops HTML comments by default, comments do not need to be manually stripped before export — but the architect should confirm their conversion tool actually drops them before relying on that.
-- The `<!-- Document body content goes here. -->` placeholder in each template (§4) is an example of this convention and should be replaced with real body content, or with a real architect-facing note, not left as inert filler.
+- Because the architect converts to PDF for review (§18.4), and standard Markdown→PDF conversion drops HTML comments by default, comments do not need to be manually stripped before export — but the architect should confirm their conversion tool actually drops them before relying on that.
+- The guidance comment under each section heading in the templates (§4) is an example of this convention. It and the `[Narrative content.]` placeholder beneath it should be replaced with real body content, or with a real architect-facing note, not left as inert filler.
 
 ### 11.2 Minimal formatting
 
@@ -346,7 +350,7 @@ The `01. Discovery/` folder is the single ingress point for everything downstrea
 
 ### 13.1 Architect-only, always
 
-The AI model must never write to `01. Discovery/` — not the phase root, not `01. Discovery/_img/`. This is an absolute rule, not a default that can be relaxed for convenience. The one exception is the one-time initial repository scaffold (§7): creating the empty `01. Discovery/`, `01. Discovery/_img/`, and `01. Discovery/_templates/` folders and the header-only Discovery template happens before any real discovery content exists, and is not "writing content" in the sense this rule restricts.
+The AI model must never write to `01. Discovery/` — not the phase root, not `01. Discovery/_img/`. This is an absolute rule, not a default that can be relaxed for convenience. The one exception is the one-time initial repository scaffold (§7): creating the empty `01. Discovery/`, `01. Discovery/_img/`, and `01. Discovery/_templates/` folders and the Discovery master template (§13.3) happens before any real discovery content exists, and is not "writing content" in the sense this rule restricts.
 
 Once a project is underway, populating `01. Discovery/` — raw conversation notes, emails, chat transcripts, meeting recordings' transcripts, or anything else a requirement owner provided — is the architect's job alone. The model may (and should) **read** the Discovery folder's contents to draft downstream documents (§14), but it never creates, edits, or deletes anything inside it.
 
@@ -358,17 +362,28 @@ Whatever form the architect chooses for capturing discovery material, each indiv
 
 **(b) The requirement's content, verbatim, in the owner's own words.** What's captured in Discovery is the accurate historical record of what was actually said or written, at the time it was provided — not a cleaned-up or pre-interpreted version of it. Wording gets refined and validated later, in the Requirements document itself (§14); the Discovery folder is not the place for that refinement to happen.
 
-A lightweight, optional convention the architect may use to keep this consistent across discovery entries:
+The Discovery template's Customer Discovery table (§13.3(d)) captures both elements, plus the date each requirement was captured so the historical record is anchored in time:
 
 ```markdown
-## Requirement Owner
-[Name / role — must not be the architect or a reviewer]
-
-## Verbatim Input
-> [The owner's exact words, unedited, as provided]
+# Customer Discovery
+| Requirement | Owner | Date Captured |
+|---|---|---|
+| [The owner's exact words, unedited, as provided] | [Name / role — must not be the architect or a reviewer] | [YYYY-MM-DD] |
 ```
 
-This is a suggestion for the architect's own use, not a template the model populates — §13.1 still applies.
+This table is for the architect's own use, not something the model populates — §13.1 still applies.
+
+### 13.3 Discovery template
+
+The Discovery master template (`01. Discovery/_templates/hesiod-atk-discovery-template.md`) contains the following `#` sections, in this order, after the standard header (§5) and before the mandatory References footer (§10.3). Sections (a)–(c) ship with toolkit-default content that the architect keeps, edits, or replaces per engagement; the model never fills in or edits this template or any document created from it (§13.1).
+
+**(a) Core Technologies** — the technologies the design must incorporate. Toolkit default: every component of VMware Cloud Foundation 9.1.1, as listed in the Bill of Materials of Broadcom's formal release notes.
+
+**(b) Reference Guardrails** — the approved research domains for this project (§10.3). Toolkit default: `*.broadcom.com` and `*.vmware.com`, with `techdocs.broadcom.com` as the primary source of truth and blogs, knowledge base, and developer/automation content as secondary. The architect confirms or replaces this list during initialization (§7, step 7).
+
+**(c) Standard Design** — the baseline the design starts from. Toolkit default: a comprehensive technical design to deploy VMware Cloud Foundation 9.1.1 in its entirety in a non-production environment, using the security and hardening guide and NIST 800-53 as the starting point for design specifications.
+
+**(d) Customer Discovery** — the `Requirement` / `Owner` / `Date Captured` table defined in §13.2.
 
 ## 14. Requirements document standard
 
@@ -437,7 +452,7 @@ A Design document contains the following sections, after the standard header (§
 
 **(e) `#` Solution Design** — develops the design itself, with the technical depth the architecture audience (§15.2) needs. It must provide the technical components needed to meet the measurable success criteria of every design driver (§15.3(b)), and must be organized so it satisfies the measurable success criteria of each release (§15.3(d)) in sequence, with the final release representing the finished product in production. Use as many subsections and diagrams as the design actually needs — there is no fixed subsection count. This section answers: "here is what we should build to meet the requirement, and once built, here is the evidence we should capture in our test plan to prove that we met the requirement to the best of our knowledge."
 
-**(f) `#` Implementation** — a guide to actually implementing the design, with the technical depth an engineering audience needs to manually click or CLI their way through installation and configuration. Automation comes later (in Planning, §16 when developed) — this section captures the underlying manual steps first, since those have to exist before they can be automated. Use as many subsections and diagrams as needed. This section answers: "how do I build the thing?"
+**(f) `#` Implementation** — a guide to actually implementing the design, with the technical depth an engineering audience needs to manually click or CLI their way through installation and configuration. Automation comes later (in Planning, §16) — this section captures the underlying manual steps first, since those have to exist before they can be automated. Use as many subsections and diagrams as needed. This section answers: "how do I build the thing?"
 
 **(g) `#` Conclusion** — summarizes the design and its desired outcome, lists the design decisions made, and provides a checklist the reader can use to confirm that everything described in Implementation (§15.3(f)) was actually built according to the design.
 
@@ -543,7 +558,7 @@ Five `##` steps, in order, walking the architect through a full first pass of th
 
 - **Step 1** — obtain the repository (download/clone). Nothing else — no branching on local vs. cloud model here; that distinction is handled in Step 2.
 - **Step 2** — initialize the project. A desktop AI agent (with direct filesystem access) is simply asked to initialize using the prompt below; a cloud based AI model instead needs `MANIFEST.md` uploaded first, then the same prompt. A desktop agent creates the local folder structure and templates automatically; a cloud agent instead walks the architect through creating the structure manually and provides templates to download. Either way, per the initialization procedure (§7), the model must prompt the architect for three confirmations before initialization is complete: (1) whether to update the header graphic, (2) the license ownership/copyright holder, and (3) the research guardrails (approved reference domains, §10.3) for this project. Only once those are confirmed does the architect move to Step 3.
-- **Step 3** — using the Discovery template (§13, Discovery Template per its own structure — Core Technologies, Reference Guardrails, Standard Design, Customer Discovery), create the discovery document directly in `01. Discovery`, in as much detail as possible, including verbatim quotes from the customer/requirement owner(s) (§13.2). This single step covers both scoping and the substantive discovery capture.
+- **Step 3** — using the Discovery template (§13.3 — Core Technologies, Reference Guardrails, Standard Design, Customer Discovery), create the discovery document directly in `01. Discovery`, in as much detail as possible, including verbatim quotes from the customer/requirement owner(s) (§13.2). This single step covers both scoping and the substantive discovery capture.
 - **Step 4** — once Discovery is complete, prompt the model to generate first drafts of the Requirements, Design, Planning, and Governance documents per the manifest (§14–§17), using Discovery as initial context.
 - **Step 5** — the architect revises and reviews the first drafts.
 
@@ -555,7 +570,7 @@ A direct statement that the architect is accountable for these artifacts, owns t
 
 ### 18.4 `#` Helpful Hint
 
-A direct reminder never to share raw Markdown files with reviewers or recipients, since the model's commentary (§11.1) is for the architect's eyes only, and to convert to PDF (or another appropriate format) before sharing — reinforcing §1 and §11.1.
+A direct reminder never to share raw Markdown files with reviewers or recipients, since the model's commentary (§11.1) is for the architect's eyes only, and to convert to PDF (or another appropriate format) before sharing — reinforcing §11.1.
 
 ### 18.5 Supplementary sections
 
@@ -571,9 +586,9 @@ This section exists to close that gap, explicitly and mechanically enough that a
 
 ### 19.2 Write like a practitioner, not like a form
 
-Every AI model executing this manifest is acting as a principal- or staff-level architect with deep, hands-on experience in the specific technologies named in the project's Discovery scoping document (README §18.2, Step 3) — not as a general-purpose assistant summarizing a topic it knows only abstractly. That means:
+Every AI model executing this manifest is acting as a principal- or staff-level architect with deep, hands-on experience in the specific technologies named in the project's Discovery document (Core Technologies, §13.3(a)) — not as a general-purpose assistant summarizing a topic it knows only abstractly. That means:
 
-- Name real things. Prefer a specific product, protocol, port number, API, file format, configuration parameter, sizing figure, or version number over a category or a generality. "The design uses NSX-T with BGP peering over a /30 transit network between the Tier-0 gateway and the physical top-of-rack switches" is compliant; "the design uses appropriate networking configurations" is not.
+- Name real things. Prefer a specific product, protocol, port number, API, file format, configuration parameter, sizing figure, or version number over a category or a generality. "The design uses NSX with BGP peering over a /30 transit network between the Tier-0 gateway and the physical top-of-rack switches" is compliant; "the design uses appropriate networking configurations" is not.
 - Make the call. Where a design decision has to be made, make it, and justify it. Do not present a menu of possibilities as a substitute for a recommendation unless the section is explicitly asking for alternatives (e.g. §17.3(c), Alternatives).
 - Never restate the heading or the manifest's own instruction as if it were content. A Context subsection that reads "This section provides context for the design decision" contains no information and does not satisfy §17.3(c). Content must add information beyond what the section's name and the manifest's guidance comment already say.
 - Match density to real technical writing, not to the shortest passing answer. A section that a real architect would need several paragraphs, a table, or a diagram to cover properly does not get compressed into two sentences because two sentences are technically responsive.
@@ -600,7 +615,7 @@ This turns completeness from an implicit expectation into a mechanical task, whi
 
 ### 19.5 Assumptions are required, not avoided
 
-Thin output is often a model being cautious rather than lazy: it doesn't have a specific answer, so it defaults to a vague one rather than committing to something that might be wrong. This toolkit takes the opposite position. Where the Discovery folder's material doesn't specify something a real document of this type would need, the model makes a reasonable, explicit assumption grounded in the project's stated core technologies (README §18.2, Step 3) and standard industry practice for those technologies — states it plainly as an assumption (a comment per §11.1 is a good place for this, or an inline note in the body prose) — and then writes the section with the same specificity it would use if the answer had been given outright. A clearly labeled assumption that turns out to be wrong is cheap for the architect to correct; a vague sentence that avoided committing to anything gives the architect nothing to correct against.
+Thin output is often a model being cautious rather than lazy: it doesn't have a specific answer, so it defaults to a vague one rather than committing to something that might be wrong. This toolkit takes the opposite position. Where the Discovery folder's material doesn't specify something a real document of this type would need, the model makes a reasonable, explicit assumption grounded in the project's stated core technologies (§13.3(a)) and standard industry practice for those technologies — states it plainly as an assumption (a comment per §11.1 is a good place for this, or an inline note in the body prose) — and then writes the section with the same specificity it would use if the answer had been given outright. A clearly labeled assumption that turns out to be wrong is cheap for the architect to correct; a vague sentence that avoided committing to anything gives the architect nothing to correct against.
 
 ### 19.6 Worked example
 

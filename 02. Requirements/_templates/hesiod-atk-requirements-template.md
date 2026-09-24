@@ -24,7 +24,7 @@
 
 <!-- Operational readiness: industry compliance standards (NIST, STIG, PCI, HIPAA,
      etc.) and pipeline stages (Development, Test, User Acceptance, Production, etc.).
-     Default compliance baseline for this toolkit: NIST 500-83, unless the architect
+     Default compliance baseline for this toolkit: NIST 800-53, unless the architect
      specifies otherwise for this engagement. -->
 
 [Narrative content.]
