@@ -6,6 +6,8 @@ The Hesiod Architecture Toolkit (HATK) — version 9.1.1 — is an open source p
 
 This repository is an instance of the toolkit, initialized from `MANIFEST.md`. It carries the artifacts produced across the toolkit's five phases: Discovery, Requirements, Design, Planning, and Governance. See `MANIFEST.md` for the full standard governing this repository's structure, naming conventions, document formatting, process flow, and governance standards.
 
+![img-map](_atkconfig/hatk-map.png)
+
 # Quick Start
 
 ## Step 1
