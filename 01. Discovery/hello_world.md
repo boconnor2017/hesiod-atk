@@ -93,8 +93,6 @@ The MPC design must provide the following elements using standard technical writ
 * Operations-Level: Functional designs, step by step instructions needed to implement the entire solution across networking, compute, storage, and shared services (DNS, AD, etc)
 * Automation-Level: APIs and CRUD operators, preferred python and PowerCLI.
 
-"Hello World" for the MPC has been achieved when all components and services above have been deployed and functionally tested in accordance with the design.
-
 # Customer Discovery
 
 <!-- Each discovery element must capture a requirement, a requirement owner, and
